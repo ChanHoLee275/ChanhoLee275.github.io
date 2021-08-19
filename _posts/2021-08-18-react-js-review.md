@@ -65,8 +65,66 @@ JSX는 아래의 특징을 갖는다.
         <h2>My Old is { age() }</h2>
     </div>);
     ~~~
-    
+
 # 엘리먼트 렌더링
+
+**엘리먼트는 React 앱의 가장 작은 단위이다.**
+
+엘리먼트는 화면에 표시할 내용을 기술한다.
+
+React DOM은 React 엘리먼트와 일치하도록 DOM을 업데이트한다.
+
+## DOM에 엘리먼트 렌더링하기
+
+html 파일에 <div>가 있다고 가정한다.
+
+이 안에 들어가는 모든 엘리먼트를 React DOM이 관리한다고 하면, 이를 루트 DOM 노드라고 부른다.
+
+React로 구현된 어플리케이션은 하나의 루트 DOM 노드가 있다.
+
+React 엘리먼트를 루트 DOM 노드에 렌더링하려면 둘 다 ReactDOM.render()로 전달하면 된다.
+
+~~~js
+const user = "Lee";
+const age = () => 23;
+const element =(
+<div>
+    <h1> Hello World! My name is { user }</h1>
+    <h2>My Old is { age() }</h2>
+</div>);
+ReactDOM.render(
+    element, document.getElementById('root'),
+)
+~~~
+
+## 렌더링 된 엘리먼트 업데이트하기
+
+React 엘리먼트는 불변객체이다. 엘리먼트는 한 번 생성한 이후에는 해당 엘리먼트의 자식이나 속성을 변경할 수 없다. 
+
+엘리먼트는 지속적으로 변화하는 UI 중 특정 시점의 상태를 보여주는 것이다.
+
+따라서 엘리먼트가 바뀔 때마다, 새롭게 엘리먼트를 렌더링하는 것이 필요하다.
+
+~~~js
+let count = 0;
+const tick = () => {
+    
+    const element =(
+    <div>
+        <h1> Hello World! My name is { user }</h1>
+        <h2>Now Time is { count }</h2>
+    </div>);
+    count += 1;
+    ReactDOM.render(element,document.getElementById('root'));
+}
+
+setInterval(tick,1000);
+~~~
+
+React DOM은 해당 엘리먼트와 그 자식 엘리먼트를 이전의 엘리먼트와 비교하고 필요한 경우에만 DOM을 업데이트한다.
+
+특정 시점에 UI가 어떻게 보일지 고민하는 접근법은 시간의 변화에 따라 UI가 어떻게 변화할지 고민하는 것보다 더 많은 수의 버그를 없앨 수 있다.
+
 # Component와 Props
 # State와 생명주기
 # 이벤트 처리하기
